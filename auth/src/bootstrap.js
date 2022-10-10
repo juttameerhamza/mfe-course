@@ -5,7 +5,7 @@ import { createMemoryHistory, createBrowserHistory } from 'history';
 import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
 import App from './App';
 
-const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+const mount = (el, { onSignIn, onNavigate, defaultHistory, initialPath }) => {
     const history = defaultHistory || createMemoryHistory({
         initialEntries: [initialPath]
     });
@@ -15,9 +15,9 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
     }
 
     ReactDOM.render(
-        <StylesProvider generateClassName={createGenerateClassName({ productionPrefix: 'ma' })}>
+        <StylesProvider generateClassName={createGenerateClassName({ productionPrefix: 'au' })}>
             <Router history={history}>
-                <App />
+                <App onSignIn={onSignIn} />
             </Router>
         </StylesProvider>
         , el
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'development') {
     // const defaultHistory = createBrowserHistory();
 
     if (devRoot) {
-        mount(devRoot, { defaultHistory: createBrowserHistory() });
+        mount(devRoot, { defaultHistory: createBrowserHistory(), initialPath: '/' });
     }
 }
 
